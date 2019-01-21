@@ -79,6 +79,17 @@ namespace StringCalculatorUnitTest
             AssertTestMethod(inputString, ExpResult);
         }
 
+        /// <summary>
+        /// Test Method for support different delimeters
+        /// </summary>
+        [TestMethod]
+        [DataRow("//;\n1;2;3", 6, DisplayName = "DifferentDelimitersTest1")]
+        [DataRow("//;\n1;2;4//", 7, DisplayName = "DifferentDelimitersTest2")]
+        [DataRow("//;\n5;10;20;", 35, DisplayName = "DifferentDelimitersTest3")]
+        public void Calucator_DifferentDelimitersTest(string inputString, int ExpResult)
+        {
+            AssertTestMethod(inputString, ExpResult);
+        }
 
 
 
