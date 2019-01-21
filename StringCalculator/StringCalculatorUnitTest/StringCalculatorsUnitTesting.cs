@@ -11,7 +11,7 @@ namespace StringCalculatorUnitTest
     [TestClass]
     public class StringCalculatorsUnitTesting
     {
-        Calculator objCalc = new Calculator();
+        
 
 
         /// <summary>
@@ -20,17 +20,16 @@ namespace StringCalculatorUnitTest
         [TestMethod]
         public void Add_EmptyStringValues()
         {
-           Assert.AreEqual(0,objCalc.AddStringNumbers(""));
+           AssertTestMethod("", 0);
         }
         /// <summary>
         /// Test Method for Add one string intiger
         /// </summary>
         [TestMethod]
-        [DataRow("5", 5)]
-        [DataRow("10", 10)]
+        
         public void Add_OneStringIntiger()
         {
-            Assert.AreEqual(1, objCalc.AddStringNumbers("1"));
+            AssertTestMethod("1", 1);
         }
 
         /// <summary>
@@ -39,9 +38,31 @@ namespace StringCalculatorUnitTest
         [TestMethod]
         public void Add_TwoStringIntiger()
         {
-            Assert.AreEqual(11, objCalc.AddStringNumbers("5,6"));
+            
+            AssertTestMethod("5,6", 11);
         }
 
+        /// <summary>
+        /// Test Method for Add two,three,four string intigers
+        /// </summary>
+        [TestMethod]
+        [DataRow("5,5", 10,DisplayName="Two String Intigers")]
+        [DataRow("10,20,30", 60, DisplayName = "Three String Intigers")]
+        [DataRow("1,2,3,4", 10, DisplayName = "Four String Intigers")]
+        public void Calucator_DataRowTestMethods(string inputString, int ExpResult)
+        {
+            AssertTestMethod(inputString, ExpResult);
+        }
+
+
+        /// <summary>
+        /// Common Assert Method for Tests
+        /// </summary>
+        private static void AssertTestMethod(string Input, int ExpResult)
+        {
+            Calculator objCalc = new Calculator();
+            Assert.AreEqual(ExpResult,objCalc.AddStringNumbers(Input));
+        }
             
     }
 }
