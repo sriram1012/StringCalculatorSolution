@@ -58,6 +58,17 @@ namespace StringCalculatorUnitTest
 
 
         /// <summary>
+        /// Test Method for Removing \n,\r Environment.NewLine, Carriage Return
+        /// </summary>
+        [TestMethod]
+        [DataRow("1\n,2,3", 10, DisplayName = "New Line")]
+        [DataRow("1,2\r3", 60, DisplayName = "Carriage Return")]   
+        public void Calucator_SpecialCharactersTest(string inputString, int ExpResult)
+        {
+            AssertTestMethod(inputString, ExpResult);
+        }
+
+        /// <summary>
         /// Common Assert Method for Tests
         /// </summary>
         private static void AssertTestMethod(string Input, int ExpResult)

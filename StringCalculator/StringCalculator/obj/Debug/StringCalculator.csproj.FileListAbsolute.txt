@@ -9,3 +9,4 @@ D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalc
 D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.pdb
 D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.exe
 D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.pdb
+D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.csprojResolveAssemblyReference.cache

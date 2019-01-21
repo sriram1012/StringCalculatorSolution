@@ -18,7 +18,7 @@ namespace StringCalculator
     public class Calculator
     {
         #region Variable declaration
-        int result;
+        int result; string negativeNumbers;
         #endregion
 
         /// <summary>
@@ -32,7 +32,12 @@ namespace StringCalculator
             {
                 if (numbers.Length < 0)
                     return 0;
-                if(numbers.IndexOf("\\n")>0)
+                if (numbers.IndexOf("-") > 0)
+                {
+                    resultArray = SplitStringNumbers(numbers, ",");
+                    negativeNumbers = ReturnNegativeNumbers(resultArray);
+                }
+                if ((numbers.IndexOf("\\n") > 0) || (numbers.IndexOf("\\r") > 0) )
                 {
                     
                     numbers = RemoveSpecialCharacters(numbers);
@@ -96,8 +101,27 @@ namespace StringCalculator
         {
             try
             {
-                var result = inputString.Replace("\\n", ",").Replace("\t", ",").Replace("\r", ",");
+                var result = inputString.Replace("\\n", ",").Replace("\\t", ",").Replace("\\r", ",").Replace("\\r\\n", ",");
                 return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new ArgumentException(ex.Message);
+            }
+        }
+
+        private string ReturnNegativeNumbers(int[] resultArray)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                for (int i = 0; i < resultArray.Length; i++)
+                {
+                    if (resultArray[i] < 0)
+                        sb.Append(resultArray[i] + " ");
+                }
+                return sb.ToString ();
             }
             catch (Exception ex)
             {
