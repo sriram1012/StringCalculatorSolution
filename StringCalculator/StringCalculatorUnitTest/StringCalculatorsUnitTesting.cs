@@ -68,6 +68,20 @@ namespace StringCalculatorUnitTest
             AssertTestMethod(inputString, ExpResult);
         }
 
+
+        /// <summary>
+        /// Test Method negative number checking
+        /// </summary>
+        [TestMethod]
+        [DataRow("1,-2,-3,-4", "Negatives not allowed", DisplayName = "Negative numbers test")]        
+        public void Calucator_NegativenumbersTest(string inputString, int ExpResult)
+        {
+            AssertTestMethod(inputString, ExpResult);
+        }
+
+
+
+
         /// <summary>
         /// Common Assert Method for Tests
         /// </summary>

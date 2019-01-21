@@ -32,11 +32,7 @@ namespace StringCalculator
             {
                 if (numbers.Length < 0)
                     return 0;
-                if (numbers.IndexOf("-") > 0)
-                {
-                    resultArray = SplitStringNumbers(numbers, ",");
-                    negativeNumbers = ReturnNegativeNumbers(resultArray);
-                }
+                
                 if ((numbers.IndexOf("\\n") > 0) || (numbers.IndexOf("\\r") > 0) )
                 {
                     
@@ -83,6 +79,9 @@ namespace StringCalculator
             
         }
 
+        /// <summary>
+        /// Sum calculator for given string intigers
+        /// </summary>
         private static int SumCalculation(int[] resultArray)
         {
             try
@@ -97,6 +96,9 @@ namespace StringCalculator
             }
         }
 
+        /// <summary>
+        /// Removing New Line, Carriage return special characters
+        /// </summary>
         private static string RemoveSpecialCharacters(string inputString)
         {
             try
@@ -111,11 +113,19 @@ namespace StringCalculator
             }
         }
 
-        private string ReturnNegativeNumbers(int[] resultArray)
+
+        /// <summary>
+        /// Find and through back if any negative numbers found with in the string.
+        /// </summary>
+        public string Find_ReturnNegativeNumbers(string numbers)
         {
+
             StringBuilder sb = new StringBuilder();
             try
             {
+                int[] resultArray = new int[100];
+                resultArray = SplitStringNumbers(numbers, ",");
+
                 for (int i = 0; i < resultArray.Length; i++)
                 {
                     if (resultArray[i] < 0)

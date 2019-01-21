@@ -16,16 +16,25 @@ namespace StringCalculator
         static void Main(string[] args)
         {
             Calculator objCalculator = new Calculator();
-            int result;
+            int result; string negativeNumbers;
             Console.WriteLine("String Calculator");
             Console.ReadLine();
             Console.WriteLine("Enter String Numbers");
 
             string numbers = Console.ReadLine();
 
-            result=objCalculator.AddStringNumbers(numbers);
-            Console.WriteLine("Sum of String Intigers are "+ result);
-            Console.ReadLine();
+            if (numbers.IndexOf("-") > 0)
+            {
+                negativeNumbers = objCalculator.Find_ReturnNegativeNumbers(numbers);
+                Console.WriteLine("Negatives not allowed: " + negativeNumbers);
+                Console.ReadLine();
+            }
+            else
+            {
+                result = objCalculator.AddStringNumbers(numbers);
+                Console.WriteLine("Sum of String Intigers are " + result);
+                Console.ReadLine();
+            }
 
         }
 
