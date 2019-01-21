@@ -32,7 +32,11 @@ namespace StringCalculator
             {
                 if (numbers.Length < 0)
                     return 0;
-                
+                if (numbers.Contains("//;\\n") )
+                {
+                    numbers = Removing_DifferentDelimiters(numbers,";");
+                }
+
                 if ((numbers.IndexOf("\\n") > 0) || (numbers.IndexOf("\\r") > 0) )
                 {
                     
@@ -45,6 +49,11 @@ namespace StringCalculator
                    result = SumCalculation(resultArray);
                 }
 
+                if (numbers.Contains(";"))
+                {
+                    resultArray = SplitStringNumbers(numbers, ";");
+                    result = SumCalculation(resultArray);
+                }
            
 
             }
@@ -65,8 +74,16 @@ namespace StringCalculator
             List<int> intNumbers = new List<int>();
             try
             {
-                foreach (string number in snumbers.Split(','))
-                    intNumbers.Add(Int32.Parse(number));
+                if (delimeter == ",")
+                {
+                    foreach (string number in snumbers.Split(','))
+                        intNumbers.Add(Int32.Parse(number));
+                }
+                else if (delimeter == ";")
+                {
+                    foreach (string number in snumbers.Split(';'))
+                        intNumbers.Add(Int32.Parse(number));
+                }
                 
                 return intNumbers.ToArray();
             }
@@ -115,7 +132,7 @@ namespace StringCalculator
 
 
         /// <summary>
-        /// Find and through back if any negative numbers found with in the string.
+        /// Find and through out if any negative numbers found with in the string.
         /// </summary>
         public string Find_ReturnNegativeNumbers(string numbers)
         {
@@ -132,6 +149,41 @@ namespace StringCalculator
                         sb.Append(resultArray[i] + " ");
                 }
                 return sb.ToString ();
+            }
+            catch (Exception ex)
+            {
+
+                throw new ArgumentException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Removing different delimiters from given input string intiger based on required delimiters
+        /// </summary>
+        private static string Removing_DifferentDelimiters(string inputString,string reqiredDelimiters)
+        {
+            try
+            {
+                var chars = new string[] { ",", ".", "/", "!", "@", "#", "$", "%", "^", "&", "*", "'", "\"", ";","_", "(", ")", ":", "|", "[", "]","\\n","\\r" };
+                var list = new List<string>(chars);
+                list.Remove(reqiredDelimiters);
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (inputString.Contains(list[i]))
+                    {
+                        inputString = inputString.Replace(list[i], "");
+                    }
+                }
+                if (inputString.Substring(0, 1).ToString() == ";")
+                {
+                    inputString = inputString.Substring(1, inputString.Length-1);
+                }
+                if(inputString.Substring(inputString.Length-1)==";")
+                {
+                    inputString = inputString.Substring(0, inputString.Length - 1);
+                }
+                return inputString;
             }
             catch (Exception ex)
             {

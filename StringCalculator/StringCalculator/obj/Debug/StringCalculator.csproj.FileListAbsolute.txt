@@ -5,8 +5,7 @@ D:\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCa
 D:\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.exe
 D:\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.pdb
 D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.exe.config
-D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.exe
-D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.pdb
 D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.exe
 D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.pdb
-D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.csprojResolveAssemblyReference.cache
+D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.exe
+D:\StringCalculatorSolution\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.pdb
