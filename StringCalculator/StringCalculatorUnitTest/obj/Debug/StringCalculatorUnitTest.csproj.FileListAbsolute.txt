@@ -1,0 +1,7 @@
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\bin\Debug\StringCalculatorUnitTest.dll
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\bin\Debug\StringCalculatorUnitTest.pdb
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\obj\Debug\StringCalculatorUnitTest.csprojResolveAssemblyReference.cache
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\obj\Debug\StringCalculatorUnitTest.dll
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\obj\Debug\StringCalculatorUnitTest.pdb
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\bin\Debug\StringCalculator.exe
+D:\StringCalculatorSolution\StringCalculator\StringCalculatorUnitTest\bin\Debug\StringCalculator.pdb

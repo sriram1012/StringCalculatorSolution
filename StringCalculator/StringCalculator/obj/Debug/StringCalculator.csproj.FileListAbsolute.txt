@@ -1,0 +1,6 @@
+D:\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.exe.config
+D:\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.exe
+D:\StringCalculatorSolution\StringCalculator\StringCalculator\bin\Debug\StringCalculator.pdb
+D:\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.csprojResolveAssemblyReference.cache
+D:\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.exe
+D:\StringCalculatorSolution\StringCalculator\StringCalculator\obj\Debug\StringCalculator.pdb
