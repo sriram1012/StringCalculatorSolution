@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace StringCalculator
 {
@@ -25,11 +27,16 @@ namespace StringCalculator
         
         public int AddStringNumbers(string numbers)
         {
-            int[] resultArray = new int[20];
+            int[] resultArray = new int[100];
             try
             {
                 if (numbers.Length < 0)
                     return 0;
+                if(numbers.IndexOf("\\n")>0)
+                {
+                    
+                    numbers = RemoveSpecialCharacters(numbers);
+                }
 
                 if (numbers.Contains(","))
                 {
@@ -85,7 +92,19 @@ namespace StringCalculator
             }
         }
 
+        private static string RemoveSpecialCharacters(string inputString)
+        {
+            try
+            {
+                var result = inputString.Replace("\\n", ",").Replace("\t", ",").Replace("\r", ",");
+                return result;
+            }
+            catch (Exception ex)
+            {
 
+                throw new ArgumentException(ex.Message);
+            }
+        }
 
     }
 
