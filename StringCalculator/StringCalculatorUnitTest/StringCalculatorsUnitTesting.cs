@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+    Author: Srirama Murthy Tirupatipati
+    Initiated Date: 19-JAN-2019
+    Description: A class for used for Unit test cases implementation & execution.
+    Last Modified Date: 23-JAN-2019
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +19,6 @@ namespace StringCalculatorUnitTest
     [TestClass]
     public class StringCalculatorsUnitTesting
     {
-        
-
-
         /// <summary>
         /// Test Method for Empty string values addition
         /// </summary>
@@ -55,14 +59,13 @@ namespace StringCalculatorUnitTest
         {
             AssertTestMethod(inputString, ExpResult);
         }
-
-
+        
         /// <summary>
         /// Test Method for Removing \n,\r Environment.NewLine, Carriage Return
         /// </summary>
         [TestMethod]
-        [DataRow("1\n,2,3", 10, DisplayName = "New Line")]
-        [DataRow("1,2\r3", 60, DisplayName = "Carriage Return")]   
+        [DataRow("1\n,2,3", 6, DisplayName = "New Line")]
+        [DataRow("1,2\r4", 7, DisplayName = "Carriage Return")]   
         public void Calucator_SpecialCharactersTest(string inputString, int ExpResult)
         {
             AssertTestMethod(inputString, ExpResult);
@@ -73,7 +76,9 @@ namespace StringCalculatorUnitTest
         /// Test Method negative number checking
         /// </summary>
         [TestMethod]
-        [DataRow("1,-2,-3,-4", "Negatives not allowed", DisplayName = "Negative numbers test")]        
+        [DataRow("1,-2,-3,-4", "Negatives not allowed", DisplayName = "Negative numbers test")]
+        [DataRow("//;\n-1;2;-3", "Negatives not allowed", DisplayName = "Negative numbers test")]
+        [DataRow("//#\n5#-7#-20;", "Negatives not allowed", DisplayName = "Negative numbers test")] 
         public void Calucator_NegativenumbersTest(string inputString, int ExpResult)
         {
             AssertTestMethod(inputString, ExpResult);
@@ -84,16 +89,13 @@ namespace StringCalculatorUnitTest
         /// </summary>
         [TestMethod]
         [DataRow("//;\n1;2;3", 6, DisplayName = "DifferentDelimitersTest1")]
-        [DataRow("//;\n1;2;4//", 7, DisplayName = "DifferentDelimitersTest2")]
-        [DataRow("//;\n5;10;20;", 35, DisplayName = "DifferentDelimitersTest3")]
+        [DataRow("//@\n1@2@4//", 7, DisplayName = "DifferentDelimitersTest2")]
+        [DataRow("//#\n5#10#20", 35, DisplayName = "DifferentDelimitersTest3")]
         public void Calucator_DifferentDelimitersTest(string inputString, int ExpResult)
         {
             AssertTestMethod(inputString, ExpResult);
         }
-
-
-
-        /// <summary>
+         /// <summary>
         /// Common Assert Method for Tests
         /// </summary>
         private static void AssertTestMethod(string Input, int ExpResult)

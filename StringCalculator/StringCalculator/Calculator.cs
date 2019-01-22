@@ -2,7 +2,7 @@
     Author: Srirama Murthy Tirupatipati
     Initiated Date: 19-JAN-2019
     Description: A class for used to calculate addition of various string parameters within different methods.
-    Last Modified Date: 21-JAN-2019
+    Last Modified Date: 23-JAN-2019
 */
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace StringCalculator
 {
-    #region String calculator starts
+    #region String calculator Singleton class starts
     public sealed class Calculator
     {
         private static Calculator CalcObject = null;
@@ -52,12 +52,20 @@ namespace StringCalculator
             {
                 if (numbers.Length < 0)
                     return 0;
-                if (numbers.Contains("//") )
+                if (numbers.Contains("-"))
                 {
-                    numbers = Support_DifferentDelimiters(numbers, DelimiterType);
+                    throw new NotSupportedException(Find_ReturnNegativeNumbers(numbers));
+
                 }
 
-                if ((numbers.IndexOf("\\n") > 0) || (numbers.IndexOf("\\r") > 0) )
+                if (numbers.Contains("//"))
+                {
+                    numbers = Support_DifferentDelimiters(numbers);
+                    result_List = SplitStringNumbers(numbers, ",");
+                    result = SumCalculation(result_List.ToArray());
+                }
+
+                if ((numbers.IndexOf("\\n") > 0) || (numbers.IndexOf("\\r") > 0))
                 {
 
                     numbers = HandlingNewLine(numbers);
@@ -75,9 +83,11 @@ namespace StringCalculator
                     result_List = SplitStringNumbers(numbers, ";");
                     result = SumCalculation(result_List.ToArray());
                 }
-               
-           
 
+            }
+            catch (NotSupportedException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -89,31 +99,25 @@ namespace StringCalculator
 
 
         /// <summary>
-        /// Method for splitting string numbers into integer numbers array
+        /// Method for splitting string numbers into integer numbers array by using "," as a delimeters
         /// </summary>
         private static List<int> SplitStringNumbers(string snumbers, String delimeter)
         {
             List<int> intNumbers = new List<int>();           
             try
             {
-
                 var res = snumbers.Split(new char[] { ',', '.', '/', '!', '@', '#', '$', '%', '^', '&', '*',  '\'', ';', '_', '(', ')', ':', '|', '[', ']', '\n', '\r' });
-
                 foreach (string number in res)
                 {
                     intNumbers.Add(Int32.Parse(number));
                 }
-
                 return intNumbers.ToList();
             }
             catch (Exception ex)
             {
-
-
                 throw new ArgumentException(ex.Message);
             }
-            
-        }
+       }
 
         /// <summary>
         /// Sum calculator for given string intigers
@@ -151,23 +155,34 @@ namespace StringCalculator
 
 
         /// <summary>
-        /// Find and through out if any negative numbers found with in the string.
+        /// Find and through out if any negative numbers found with in the string by using Regex.
         /// </summary>
-        public string Find_ReturnNegativeNumbers(string numbers)
+        public static string Find_ReturnNegativeNumbers(string numbers)
         {
-
             StringBuilder sb = new StringBuilder();
             try
             {
-                List<int> result_List = new List<int>();
-                result_List = SplitStringNumbers(numbers, ",");
+                int n = 0;
+                MatchCollection matches = Regex.Matches(numbers, @"[+-]?\d+(\.\d+)?");
+                decimal[] NegativeArray = new decimal[matches.Count];
 
-                for (int i = 0; i < result_List.Count; i++)
+                foreach (Match m in matches)
                 {
-                    if (result_List[i] < 0)
-                        sb.Append(result_List[i] + " ");
+                    NegativeArray[n] = decimal.Parse(m.Value);
+                    n++;
                 }
-                return sb.ToString ();
+                if (NegativeArray.Min() < 0)
+                {
+                    foreach (int number in NegativeArray)
+                    {
+                        if (number < 0)
+                        {
+                            sb.Append(number+",");
+                        }
+                    }
+                }
+
+                return string.Format("Negatives not allowed {0}", sb.ToString().TrimEnd(','));                
             }
             catch (Exception ex)
             {
@@ -179,10 +194,11 @@ namespace StringCalculator
         /// <summary>
         ///Supporting different delimiters from given input string 
         /// </summary>
-        public static string Support_DifferentDelimiters(string inputString,string reqiredDelimiters)
+        public static string Support_DifferentDelimiters(string inputString)
         {
             try
             {
+                string reqiredDelimiters = inputString.Substring(2, 1);
                 var chars = new string[] { ",", ".", "/", "!", "@", "#", "$", "%", "^", "&", "*", "'", "\"", ";","_", "(", ")", ":", "|", "[", "]","\\n","\\r" };
                 var list = new List<string>(chars);
                 list.Remove(reqiredDelimiters);
@@ -208,12 +224,11 @@ namespace StringCalculator
             {
 
                 throw new ArgumentException(ex.Message);
+
             }
         }
 
     }
 
-    
-   
     #endregion
 }
