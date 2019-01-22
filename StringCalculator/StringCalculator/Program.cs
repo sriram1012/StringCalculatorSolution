@@ -18,7 +18,7 @@ namespace StringCalculator
             Calculator objCalculator = new Calculator();
             int result; string negativeNumbers;
             Console.WriteLine("String Calculator");
-            Console.ReadLine();
+           
             Console.WriteLine("Enter String Numbers");
 
             string numbers = Console.ReadLine();
