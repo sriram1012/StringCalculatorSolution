@@ -98,8 +98,8 @@ namespace StringCalculatorUnitTest
         /// </summary>
         private static void AssertTestMethod(string Input, int ExpResult)
         {
-            Calculator objCalc = new Calculator();
-            Assert.AreEqual(ExpResult,objCalc.AddStringNumbers(Input));
+            
+            Assert.AreEqual(ExpResult,Calculator._CalculatorInstance.AddStringNumbers(Input));
         }
             
     }

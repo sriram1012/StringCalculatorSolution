@@ -15,24 +15,45 @@ namespace StringCalculator
         
         static void Main(string[] args)
         {
-            Calculator objCalculator = new Calculator();
-            int result; string negativeNumbers;
-            Console.WriteLine("String Calculator");
-           
-            Console.WriteLine("Enter String Numbers");
-
-            string numbers = Console.ReadLine();
-
-            if (numbers.IndexOf("-") > 0)
+            try
             {
-                negativeNumbers = objCalculator.Find_ReturnNegativeNumbers(numbers);
-                Console.WriteLine("Negatives not allowed: " + negativeNumbers);
-                Console.ReadLine();
+
+
+                
+                int result; string negativeNumbers;
+                Console.WriteLine("String Calculator");
+
+                Console.WriteLine("Enter String Numbers");
+
+                string numbers = Console.ReadLine();
+
+                if (numbers.IndexOf("-") > 0)
+                {
+                    negativeNumbers = Calculator._CalculatorInstance.Find_ReturnNegativeNumbers(numbers);
+                    Console.WriteLine("Negatives not allowed: " + negativeNumbers);
+                    Console.ReadLine();
+                }
+                else if (numbers.Contains("//"))
+                {
+                    Console.WriteLine("Enter Delimiter Type");                   
+                    Calculator._CalculatorInstance.DelimiterType = Console.ReadLine();
+                    var num=Calculator.Support_DifferentDelimiters(numbers, Calculator._CalculatorInstance.DelimiterType);
+                    result = Calculator._CalculatorInstance.AddStringNumbers(num);
+                    Console.WriteLine("Sum of String Intigers are " + result);
+                    Console.ReadLine();
+
+                }
+                else
+                {
+                    result = Calculator._CalculatorInstance.AddStringNumbers(numbers);
+                    Console.WriteLine("Sum of String Intigers are " + result);
+                    Console.ReadLine();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                result = objCalculator.AddStringNumbers(numbers);
-                Console.WriteLine("Sum of String Intigers are " + result);
+
+                Console.WriteLine(ex.Message);
                 Console.ReadLine();
             }
 

@@ -10,15 +10,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using System.Text;
+
 
 namespace StringCalculator
 {
     #region String calculator starts
-    public class Calculator
+    public sealed class Calculator
     {
+        private static Calculator CalcObject = null;
+       
+        private Calculator()
+        {
+            //Default Private construction for single instanation purpose
+        }
+
+        public static Calculator _CalculatorInstance
+        {
+            get
+            {
+                return CalcObject = new Calculator();
+            }
+        }
+
         #region Variable declaration
-        int result; string negativeNumbers;
+        int result; 
+        #endregion
+
+        #region Properties declaration
+        public string DelimiterType { get; set; }
         #endregion
 
         /// <summary>
@@ -27,33 +46,36 @@ namespace StringCalculator
         
         public int AddStringNumbers(string numbers)
         {
-            int[] resultArray = new int[100];
+                    
+            List<int> result_List = new List<int>();
             try
             {
                 if (numbers.Length < 0)
                     return 0;
-                if (numbers.Contains("//;\\n") )
+                if (numbers.Contains("//") )
                 {
-                    numbers = Removing_DifferentDelimiters(numbers,";");
+                    numbers = Support_DifferentDelimiters(numbers, DelimiterType);
                 }
 
                 if ((numbers.IndexOf("\\n") > 0) || (numbers.IndexOf("\\r") > 0) )
                 {
-                    
-                    numbers = RemoveSpecialCharacters(numbers);
+
+                    numbers = HandlingNewLine(numbers);
                 }
 
                 if (numbers.Contains(","))
                 {
-                   resultArray = SplitStringNumbers(numbers, ",");
-                   result = SumCalculation(resultArray);
+                    result_List = SplitStringNumbers(numbers, ",");
+
+                    result = SumCalculation(result_List.ToArray());
                 }
 
                 if (numbers.Contains(";"))
                 {
-                    resultArray = SplitStringNumbers(numbers, ";");
-                    result = SumCalculation(resultArray);
+                    result_List = SplitStringNumbers(numbers, ";");
+                    result = SumCalculation(result_List.ToArray());
                 }
+               
            
 
             }
@@ -69,23 +91,20 @@ namespace StringCalculator
         /// <summary>
         /// Method for splitting string numbers into integer numbers array
         /// </summary>
-        private static int[] SplitStringNumbers(string snumbers,string delimeter)
+        private static List<int> SplitStringNumbers(string snumbers, String delimeter)
         {
-            List<int> intNumbers = new List<int>();
+            List<int> intNumbers = new List<int>();           
             try
             {
-                if (delimeter == ",")
+
+                var res = snumbers.Split(new char[] { ',', '.', '/', '!', '@', '#', '$', '%', '^', '&', '*',  '\'', ';', '_', '(', ')', ':', '|', '[', ']', '\n', '\r' });
+
+                foreach (string number in res)
                 {
-                    foreach (string number in snumbers.Split(','))
-                        intNumbers.Add(Int32.Parse(number));
+                    intNumbers.Add(Int32.Parse(number));
                 }
-                else if (delimeter == ";")
-                {
-                    foreach (string number in snumbers.Split(';'))
-                        intNumbers.Add(Int32.Parse(number));
-                }
-                
-                return intNumbers.ToArray();
+
+                return intNumbers.ToList();
             }
             catch (Exception ex)
             {
@@ -99,15 +118,15 @@ namespace StringCalculator
         /// <summary>
         /// Sum calculator for given string intigers
         /// </summary>
-        private static int SumCalculation(int[] resultArray)
+        public static int SumCalculation(int[] resultArray)
         {
             try
-            {
-                var sumOfNumbers = resultArray.Where(x => x <= 100).Sum();
+            {            
+                var sumOfNumbers = resultArray.Select(x => (int)x).Sum();
                 return sumOfNumbers;
             }
             catch (Exception ex)
-            {
+            {   
                 
                 throw new ArgumentException(ex.Message);
             }
@@ -116,7 +135,7 @@ namespace StringCalculator
         /// <summary>
         /// Removing New Line, Carriage return special characters
         /// </summary>
-        private static string RemoveSpecialCharacters(string inputString)
+        private static string HandlingNewLine(string inputString)
         {
             try
             {
@@ -140,13 +159,13 @@ namespace StringCalculator
             StringBuilder sb = new StringBuilder();
             try
             {
-                int[] resultArray = new int[100];
-                resultArray = SplitStringNumbers(numbers, ",");
+                List<int> result_List = new List<int>();
+                result_List = SplitStringNumbers(numbers, ",");
 
-                for (int i = 0; i < resultArray.Length; i++)
+                for (int i = 0; i < result_List.Count; i++)
                 {
-                    if (resultArray[i] < 0)
-                        sb.Append(resultArray[i] + " ");
+                    if (result_List[i] < 0)
+                        sb.Append(result_List[i] + " ");
                 }
                 return sb.ToString ();
             }
@@ -158,9 +177,9 @@ namespace StringCalculator
         }
 
         /// <summary>
-        /// Removing different delimiters from given input string intiger based on required delimiters
+        ///Supporting different delimiters from given input string 
         /// </summary>
-        private static string Removing_DifferentDelimiters(string inputString,string reqiredDelimiters)
+        public static string Support_DifferentDelimiters(string inputString,string reqiredDelimiters)
         {
             try
             {
@@ -175,15 +194,15 @@ namespace StringCalculator
                         inputString = inputString.Replace(list[i], "");
                     }
                 }
-                if (inputString.Substring(0, 1).ToString() == ";")
+                if (inputString.Substring(0, 1).ToString() == reqiredDelimiters)
                 {
                     inputString = inputString.Substring(1, inputString.Length-1);
                 }
-                if(inputString.Substring(inputString.Length-1)==";")
+                if (inputString.Substring(inputString.Length - 1) == reqiredDelimiters)
                 {
                     inputString = inputString.Substring(0, inputString.Length - 1);
                 }
-                return inputString;
+                return inputString.Replace(reqiredDelimiters,",");
             }
             catch (Exception ex)
             {
